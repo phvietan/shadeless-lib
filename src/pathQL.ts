@@ -1,45 +1,19 @@
-import { Config, IConfig } from "./libs/config";
-import { checker } from './libs/check';
-import { getWlblFilter } from "./libs/databases/getWlblFilter";
-import { get, ParsedPath } from "./libs/databases/parsedPath";
-import { initDatabases } from './libs/databases/init';
-import { sleep } from "@drstrain/drutil";
+import { getWlblFilter } from "./libs/repositories/getWlblFilter";
+import { ParsedPath, parsedPathRepo } from "./libs/repositories/parsedPath";
+import { IQueryLanguage, QueryLanguage } from "./queryLanguage";
 
-export class PathQL {
-  config: Config;
+export class PathQL extends QueryLanguage implements IQueryLanguage<ParsedPath> {
 
-  private doneInitDb: boolean = false;
-  private filter: any = {};
-  private all: boolean = false;
-
-  public setAll(a: boolean): PathQL {
-    this.all = a;
-    return this;
-  }
-  public getAll() { return this.all; }
-
-  public setFilter(f: any): PathQL {
-    this.filter = f;
-    return this;
-  }
-  public getFilter() { return this.filter; }
-
-  constructor(inputConfig: Partial<IConfig>) {
-    this.config = new Config(inputConfig);
-    checker(this.config).then(() => { this.doneInitDb = true; });
-  }
-
-  async queryPath(lastFilter: any = {}): Promise<ParsedPath[]> {
-    if (!this.doneInitDb) {
-      await sleep(300);
-      return this.queryPath(lastFilter);
-    }
+  async query(lastFilter: any = {}): Promise<ParsedPath[]> {
+    await this.checkDoneInitDatabase();
     const filter = {
+      ...this.getStatusAsFilter(),
       ...await getWlblFilter(this.config.choosingProject, this.all),
       ...this.filter,
       ...lastFilter,
     };
-    const listPaths = await get(this.config.choosingProject, filter);
+    const listPaths = await parsedPathRepo.getByProjectName(this.config.choosingProject, filter);
     return listPaths;
   }
+
 }

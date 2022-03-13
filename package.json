@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@drstrain/drutil": "^1.1.9",
+    "axios-burp": "^1.0.7",
     "mongodb": "^4.4.1"
   }
 }

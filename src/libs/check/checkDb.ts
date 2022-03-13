@@ -1,4 +1,4 @@
-import { initDatabases } from "../../libs/databases/init";
+import { initDatabases } from "../repositories/init";
 
 export async function checkDb(databaseUrl: string) {
   try {

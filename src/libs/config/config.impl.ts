@@ -15,5 +15,11 @@ export class Config implements IConfig {
     this.databaseUrl = this.databaseUrl || 'mongodb://localhost:27017';
     this.bodyDir = this.bodyDir || path.join(this.shadelessApiPath, 'files');
     this.choosingProject = this.choosingProject || '';
+
+  }
+
+  getFilesLocation(): string {
+    const filesLocation = path.join(this.shadelessApiPath, 'files', this.choosingProject);
+    return filesLocation;
   }
 }

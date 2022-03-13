@@ -1,7 +1,6 @@
 import { exec } from "@drstrain/drutil"
 
 export async function grepRegexInDirectory(dir: string, val: string): Promise<string[]> {
-  // const filesLocation = path.join(conf.shadelessApiPath, 'files', conf.choosingProject);
   const { stdout } = await exec('rg', [
     '--files-with-matches',
     '--text',
