@@ -1,10 +1,9 @@
-import { getWlblFilter } from "./libs/repositories/getWlblFilter";
-import { parsedPacketRepo } from "./libs/repositories/parsedPacket";
-import { IQueryLanguage, QueryLanguage } from "./queryLanguage";
-import { ParsedPacket } from "./libs/repositories/parsedPacket";
-import { grepRegexInDirectory } from "./libs/grepper/grepRegexInDirectory";
-import { IConfig } from "./libs/config";
-import { FuzzStatus } from "./libs/repositories/status";
+import {getWlblFilter} from './libs/repositories/getWlblFilter';
+import {parsedPacketRepo} from './libs/repositories/parsedPacket';
+import {IQueryLanguage, QueryLanguage} from './queryLanguage';
+import {ParsedPacket} from './libs/repositories/parsedPacket';
+import {grepRegexInDirectory} from './libs/grepper/grepRegexInDirectory';
+import {IConfig} from './libs/config';
 
 export class PacketQL extends QueryLanguage<ParsedPacket> implements IQueryLanguage<ParsedPacket> {
   protected threshold: number = 50;
@@ -41,7 +40,7 @@ export class PacketQL extends QueryLanguage<ParsedPacket> implements IQueryLangu
   private async getThresholdMatched(lastFilter: any) {
     const thresholdFilter = {
       ...this.getStatusAsFilter(),
-      staticScore: { $lte: this.threshold },
+      staticScore: {$lte: this.threshold},
       ...await getWlblFilter(this.config.choosingProject, this.all),
       $or: [{
         requestHeaders: {
@@ -72,7 +71,7 @@ export class PacketQL extends QueryLanguage<ParsedPacket> implements IQueryLangu
   private filterPacketsByBodyId(matchedIds: string[], packets: ParsedPacket[]): ParsedPacket[] {
     const setMatchedId: Set<string> = new Set();
     matchedIds.forEach((id) => setMatchedId.add(id));
-    return packets.filter(p => setMatchedId.has(p.requestBodyHash) || setMatchedId.has(p.responseBodyHash));
+    return packets.filter((p) => setMatchedId.has(p.requestBodyHash) || setMatchedId.has(p.responseBodyHash));
   }
 
 

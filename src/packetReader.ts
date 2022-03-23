@@ -1,7 +1,7 @@
-import { IConfig, Config } from "./libs/config";
-import { PacketRequest, PacketResponse } from "./libs/repositories/packet";
-import { request2Burp } from "./libs/packetReader/request2Burp";
-import { response2Burp } from "./libs/packetReader/response2Burp";
+import {IConfig, Config} from './libs/config';
+import {PacketRequest, PacketResponse} from './libs/repositories/packet';
+import {request2Burp} from './libs/packetReader/request2Burp';
+import {response2Burp} from './libs/packetReader/response2Burp';
 
 interface IPacketReader {
   parseRequestToBurp: (packet: PacketRequest) => Promise<string>;

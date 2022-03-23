@@ -1,8 +1,8 @@
-import { sleep } from "@drstrain/drutil";
-import { checker } from "./libs/check";
-import { Config, IConfig } from "./libs/config";
-import { Repository } from "./libs/repositories/repository";
-import { FuzzStatus, MongoItem } from "./libs/repositories/status";
+import {sleep} from '@drstrain/drutil';
+import {checker} from './libs/check';
+import {Config, IConfig} from './libs/config';
+import {Repository} from './libs/repositories/repository';
+import {FuzzStatus, MongoItem} from './libs/repositories/status';
 
 export interface IQueryLanguage<T extends MongoItem> {
   query: (lastFilter: any) => Promise<T[]>;
@@ -11,8 +11,7 @@ export interface IQueryLanguage<T extends MongoItem> {
 }
 
 export class QueryLanguage<T extends MongoItem> {
-
-  protected db: Repository<T>;  
+  protected db: Repository<T>;
   protected config: Config;
   protected status: FuzzStatus = FuzzStatus.TODO;
   protected filter: any = {};
@@ -22,7 +21,9 @@ export class QueryLanguage<T extends MongoItem> {
   constructor(db: Repository<T>, inputConfig: Partial<IConfig>) {
     this.db = db;
     this.config = new Config(inputConfig);
-    checker(this.config).then(() => { this.doneInitDb = true; });
+    checker(this.config).then(() => {
+      this.doneInitDb = true;
+    });
   }
 
   protected getStatusAsFilter(): any {
@@ -51,7 +52,7 @@ export class QueryLanguage<T extends MongoItem> {
   public async setQueryDone(items: T[]): Promise<void> {
     for (let i = 0; i < items.length; ++i) {
       const p = items[i];
-      await this.db.update({ _id: p._id }, {
+      await this.db.update({_id: p._id}, {
         status: FuzzStatus.DONE,
       });
     }
@@ -60,7 +61,7 @@ export class QueryLanguage<T extends MongoItem> {
   public async setQueryTodo(items: T[]): Promise<void> {
     for (let i = 0; i < items.length; ++i) {
       const p = items[i];
-      await this.db.update({ _id: p._id }, {
+      await this.db.update({_id: p._id}, {
         status: FuzzStatus.TODO,
       });
     }

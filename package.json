@@ -12,7 +12,10 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^17.0.21",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
     "eslint": "^8.11.0",
+    "eslint-config-google": "^0.14.0",
     "typescript": "^4.6.2"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-const { PathQL, FuzzStatus } = require('../dist');
+const {PathQL, FuzzStatus} = require('../dist');
 
 async function main() {
   const pql = new PathQL({
@@ -7,14 +7,14 @@ async function main() {
   });
 
   const paths = await pql
-    .setFilter({ origin: { $regex: 'onair' }, path: '/' })
-    .setStatus(FuzzStatus.DONE)
-    .query();
+      .setFilter({origin: {$regex: 'onair'}, path: '/'})
+      .setStatus(FuzzStatus.DONE)
+      .query();
 
   console.log(paths);
   await pql.setQueryDone(paths);
 
-  process.exit(0)
+  process.exit(0);
 }
 
 main();

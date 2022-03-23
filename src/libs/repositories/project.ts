@@ -1,4 +1,5 @@
-import { Repository } from './repository';
+/* eslint-disable no-unused-vars */
+import {Repository} from './repository';
 
 export enum ProjectStatus {
   TODO = 'todo',
@@ -27,7 +28,7 @@ export interface Project {
 
 class ProjectRepository extends Repository<Project> {
   async getOneProjectByName(projectName: string): Promise<Project | undefined> {
-    const document = await this.db.findOne({ name: projectName });
+    const document = await this.db.findOne({name: projectName});
     if (!document) return undefined;
     return document as any as Project;
   }

@@ -1,6 +1,6 @@
-import { Packet } from './packet';
-import { FuzzStatus } from './status';
-import { Repository } from './repository';
+import {Packet} from './packet';
+import {FuzzStatus} from './status';
+import {Repository} from './repository';
 
 export interface ParsedPacket extends Packet {
   hash: string;

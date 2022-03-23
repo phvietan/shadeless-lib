@@ -1,6 +1,6 @@
-import os from "os";
-import path from "path";
-import { IConfig } from "./config.interface";
+import os from 'os';
+import path from 'path';
+import {IConfig} from './config.interface';
 
 export class Config implements IConfig {
   bodyDir: string = '';
@@ -15,7 +15,6 @@ export class Config implements IConfig {
     this.databaseUrl = this.databaseUrl || 'mongodb://localhost:27017';
     this.bodyDir = this.bodyDir || path.join(this.shadelessApiPath, 'files');
     this.choosingProject = this.choosingProject || '';
-
   }
 
   getFilesLocation(): string {

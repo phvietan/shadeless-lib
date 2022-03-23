@@ -1,4 +1,4 @@
-const { PathQL } = require('../dist');
+const {PathQL} = require('../dist');
 
 async function main() {
   const pql = new PathQL({
@@ -7,9 +7,9 @@ async function main() {
   });
 
   const paths = await pql
-    .setAll(true)
-    .setFilter({ origin: { $regex: 'onair' }, path: '/' })
-    .query();
+      .setAll(true)
+      .setFilter({origin: {$regex: 'onair'}, path: '/'})
+      .query();
 
   console.log(paths);
 }

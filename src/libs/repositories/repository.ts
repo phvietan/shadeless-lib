@@ -1,4 +1,4 @@
-import { Collection, Document, UpdateResult } from "mongodb";
+import {Collection, Document, UpdateResult} from 'mongodb';
 
 export interface IRepository<T> {
   setDb: (newDb: Collection<Document>) => void;
@@ -28,12 +28,12 @@ export class Repository<T> implements IRepository<T> {
 
   async getByProjectName(projectName: string, filter: any = {}) {
     const documents = await this.db
-      .find({
-        project: projectName,
-        ...filter,
-      })
-      .sort({ created_at: 1 })
-      .toArray();
+        .find({
+          project: projectName,
+          ...filter,
+        })
+        .sort({created_at: 1})
+        .toArray();
     return documents as any as T[];
   }
 }

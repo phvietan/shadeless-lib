@@ -1,4 +1,4 @@
-import { MongoItem } from "./status";
+import {MongoItem} from './status';
 
 // Minimal properties that can craft to burp request
 export interface PacketRequest {

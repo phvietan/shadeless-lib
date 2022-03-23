@@ -1,5 +1,5 @@
-import { Repository } from './repository';
-import { FuzzStatus, MongoItem } from './status';
+import {Repository} from './repository';
+import {FuzzStatus, MongoItem} from './status';
 
 export interface ParsedPath extends MongoItem {
   requestPacketId: string;

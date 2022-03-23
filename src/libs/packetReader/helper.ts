@@ -1,6 +1,4 @@
-export function getHeaderMapFromHeaders(
-  headers: string[],
-): Record<string, string> {
+export function getHeaderMapFromHeaders(headers: string[]): Record<string, string> {
   const result: Record<string, string> = {};
   headers.forEach((header) => {
     const delimiter = header.indexOf(': ');

@@ -1,7 +1,7 @@
-import { IConfig } from '../config';
-import { checkDb } from './checkDb';
-import { checkProject } from './checkProject';
-import { checkRipgrep } from './checkRipgrep';
+import {IConfig} from '../config';
+import {checkDb} from './checkDb';
+import {checkProject} from './checkProject';
+import {checkRipgrep} from './checkRipgrep';
 
 export async function checker(conf: IConfig) {
   try {

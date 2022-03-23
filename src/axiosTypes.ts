@@ -1,7 +1,7 @@
 export type AxiosRequestHeaders = Record<string, string | number | boolean>;
 
 export type AxiosResponseHeaders = Record<string, string> & {
-  "set-cookie"?: string[]
+  'set-cookie'?: string[]
 };
 
 export interface AxiosBasicCredentials {
