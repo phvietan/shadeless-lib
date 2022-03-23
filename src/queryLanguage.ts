@@ -32,15 +32,15 @@ export class QueryLanguage<T extends MongoItem> {
       status: this.status,
     };
   }
-  public setStatus(newStatus: FuzzStatus): QueryLanguage<T> {
+  public setStatus(newStatus: FuzzStatus) {
     this.status = newStatus;
     return this;
   }
-  public setAll(a: boolean): QueryLanguage<T> {
+  public setAll(a: boolean) {
     this.all = a;
     return this;
   }
-  public setFilter(f: any): QueryLanguage<T> {
+  public setFilter(f: any) {
     this.filter = f;
     return this;
   }
