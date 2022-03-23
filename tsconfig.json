@@ -9,7 +9,7 @@
     "declaration": true /* Generates corresponding '.d.ts' file. */
   },
   "exclude": [
-    "script_test",
+    "attack_scripts",
     "./node_modules/",
     "./dist/"
   ]

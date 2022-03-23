@@ -1,3 +1,6 @@
+import { MongoItem } from "./status";
+
+// Minimal properties that can craft to burp request
 export interface PacketRequest {
   method: string;
   project: string;
@@ -7,13 +10,20 @@ export interface PacketRequest {
   path: string;
   querystring: string;
 }
-export interface Packet extends PacketRequest {
-  _id?: string;
+
+// Minimal properties that can craft to burp response
+export interface PacketResponse {
+  project: string;
+  responseBodyHash: string;
+  responseHeaders: string[];
+}
+
+export interface Packet extends PacketRequest, PacketResponse, MongoItem {
+  toolName: string;
   requestPacketId: string;
   requestPacketPrefix: string;
   requestPacketIndex: number;
 
-  toolName: string;
   requestLength: number;
   requestHttpVersion: string;
   requestContentType: string;
@@ -24,16 +34,14 @@ export interface Packet extends PacketRequest {
   hasBodyParam: boolean;
   parameters: string[];
 
-  responseStatus: number;
   responseContentType: string;
+  responseStatus: number;
   responseStatusText: string;
   responseLength: number;
   responseMimeType: string;
   responseHttpVersion: string;
   responseInferredMimeType: string;
   responseCookies: string;
-  responseBodyHash: string;
-  responseHeaders: string[];
 
   rtt: number;
   reflectedParameters: Record<string, string>;

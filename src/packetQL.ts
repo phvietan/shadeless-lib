@@ -3,12 +3,19 @@ import { parsedPacketRepo } from "./libs/repositories/parsedPacket";
 import { IQueryLanguage, QueryLanguage } from "./queryLanguage";
 import { ParsedPacket } from "./libs/repositories/parsedPacket";
 import { grepRegexInDirectory } from "./libs/grepper/grepRegexInDirectory";
+import { IConfig } from "./libs/config";
+import { FuzzStatus } from "./libs/repositories/status";
 
-export class PacketQL extends QueryLanguage implements IQueryLanguage<ParsedPacket> {
-
+export class PacketQL extends QueryLanguage<ParsedPacket> implements IQueryLanguage<ParsedPacket> {
   protected threshold: number = 50;
   protected body: string = '';
+  protected reqHeader: string = '';
+  protected resHeader: string = '';
   protected header: string = '';
+
+  constructor(inputConfig: Partial<IConfig>) {
+    super(parsedPacketRepo, inputConfig);
+  }
 
   public setThreshold(newThreshold: number): PacketQL {
     this.threshold = newThreshold;
@@ -20,6 +27,14 @@ export class PacketQL extends QueryLanguage implements IQueryLanguage<ParsedPack
   }
   public setHeader(newHeader: string): PacketQL {
     this.header = newHeader;
+    return this;
+  }
+  public setRequestHeader(newReqHeader: string): PacketQL {
+    this.reqHeader = newReqHeader;
+    return this;
+  }
+  public setResponseHeader(newResHeader: string): PacketQL {
+    this.resHeader = newResHeader;
     return this;
   }
 
@@ -40,6 +55,14 @@ export class PacketQL extends QueryLanguage implements IQueryLanguage<ParsedPack
           $options: 'i',
         },
       }],
+      requestHeaders: {
+        $regex: this.reqHeader,
+        $options: 'i',
+      },
+      responseHeaders: {
+        $regex: this.resHeader,
+        $options: 'i',
+      },
       ...this.filter,
       ...lastFilter,
     };
@@ -57,9 +80,12 @@ export class PacketQL extends QueryLanguage implements IQueryLanguage<ParsedPack
     await this.checkDoneInitDatabase();
 
     const thresholdPackets = await this.getThresholdMatched(lastFilter);
+
+    // Speed up if body is empty, do not need to filter more
+    if (this.body === '') return thresholdPackets;
+
     const matchedBodyId = await grepRegexInDirectory(this.config.getFilesLocation(), this.body);
     const filterBodyPackets = this.filterPacketsByBodyId(matchedBodyId, thresholdPackets);
-
     return filterBodyPackets;
   }
 }

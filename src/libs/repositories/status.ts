@@ -4,3 +4,7 @@ export enum FuzzStatus {
   DONE = 'done',
   ANY = 'any',
 }
+
+export interface MongoItem {
+  _id: string;
+}
