@@ -1,13 +1,18 @@
 {
-  "name": "shadeless-lib",
-  "version": "1.0.0",
+  "name": "@drstrain/shadeless-lib",
+  "version": "1.0.1",
   "description": "ShadelessQL - Query Language for Shadeless Database",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --watch"
   },
-  "keywords": [],
+  "keywords": [
+    "query-language",
+    "library",
+    "shadeless",
+    "reconnaissance"
+  ],
   "author": "drstrnegth",
   "license": "MIT",
   "devDependencies": {
@@ -22,5 +27,14 @@
     "@drstrain/drutil": "^1.1.9",
     "axios-burp": "^1.0.7",
     "mongodb": "^4.4.1"
-  }
+  },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phvietan/shadeless-lib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phvietan/shadeless-lib/issues"
+  },
+  "homepage": "https://github.com/phvietan/shadeless-lib#readme"
 }
