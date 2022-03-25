@@ -7,5 +7,5 @@ export enum FuzzStatus {
 }
 
 export interface MongoItem {
-  _id: string;
+  _id?: string;
 }

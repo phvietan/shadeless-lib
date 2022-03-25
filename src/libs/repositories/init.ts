@@ -1,7 +1,8 @@
 import {MongoClient} from 'mongodb';
+import {projectRepo} from './project';
+import {toolNoteRepo} from './toolNote';
 import {parsedPathRepo} from './parsedPath';
 import {parsedPacketRepo} from './parsedPacket';
-import {projectRepo} from './project';
 
 export async function initDatabases(databaseUrl: string) {
   return new Promise<void>((resolve, reject) => {
@@ -10,6 +11,7 @@ export async function initDatabases(databaseUrl: string) {
       if (err || !db) return reject(err);
       const dbo = db.db('shadeless');
       projectRepo.setDb(dbo.collection('projects'));
+      toolNoteRepo.setDb(dbo.collection('tool_notes'));
       parsedPathRepo.setDb(dbo.collection('parsed_paths'));
       parsedPacketRepo.setDb(dbo.collection('parsed_packets'));
       resolve();

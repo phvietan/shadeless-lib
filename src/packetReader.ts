@@ -3,8 +3,9 @@ import {PacketRequest, PacketResponse} from './libs/repositories/packet';
 import {request2Burp} from './libs/packetReader/request2Burp';
 import {response2Burp} from './libs/packetReader/response2Burp';
 
-interface IPacketReader {
+export interface IPacketReader {
   parseRequestToBurp: (packet: PacketRequest) => Promise<string>;
+  parseResponseToBurp: (packet: PacketResponse) => Promise<string>;
 }
 
 export class PacketReader implements IPacketReader {

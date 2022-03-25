@@ -28,7 +28,7 @@ export interface Project {
 
 class ProjectRepository extends Repository<Project> {
   async getOneProjectByName(projectName: string): Promise<Project | undefined> {
-    const document = await this.db.findOne({name: projectName});
+    const document = await this.getOne({name: projectName});
     if (!document) return undefined;
     return document as any as Project;
   }

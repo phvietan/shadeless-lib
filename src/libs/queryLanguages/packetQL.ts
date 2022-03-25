@@ -1,45 +1,45 @@
-import {getWlblFilter} from './libs/repositories/getWlblFilter';
-import {parsedPacketRepo} from './libs/repositories/parsedPacket';
-import {IQueryLanguage, QueryLanguage} from './queryLanguage';
-import {ParsedPacket} from './libs/repositories/parsedPacket';
-import {grepRegexInDirectory} from './libs/grepper/grepRegexInDirectory';
-import {IConfig} from './libs/config';
+import {getWlblFilter} from '../repositories/getWlblFilter';
+import {parsedPacketRepo} from '../repositories/parsedPacket';
+import {ParsedItemQL} from './parsedItemQL';
+import {ParsedPacket} from '../repositories/parsedPacket';
+import {grepRegexInDirectory} from '../grepper/grepRegexInDirectory';
+import {IConfig} from '../config';
+import {IQueryLanguage} from '../queryLanguages/queryLanguage';
 
-export class PacketQL extends QueryLanguage<ParsedPacket> implements IQueryLanguage<ParsedPacket> {
-  protected threshold: number = 50;
-  protected body: string = '';
-  protected reqHeader: string = '';
-  protected resHeader: string = '';
-  protected header: string = '';
+export class PacketQL extends ParsedItemQL<ParsedPacket> implements IQueryLanguage<ParsedPacket> {
+  private threshold: number = 50;
+  private body: string = '';
+  private reqHeader: string = '';
+  private resHeader: string = '';
+  private header: string = '';
 
   constructor(inputConfig: Partial<IConfig>) {
     super(parsedPacketRepo, inputConfig);
   }
 
-  public setThreshold(newThreshold: number): PacketQL {
+  public setThreshold(newThreshold: number) {
     this.threshold = newThreshold;
     return this;
   }
-  public setBody(newBody: string): PacketQL {
+  public setBody(newBody: string) {
     this.body = newBody;
     return this;
   }
-  public setHeader(newHeader: string): PacketQL {
+  public setHeader(newHeader: string) {
     this.header = newHeader;
     return this;
   }
-  public setRequestHeader(newReqHeader: string): PacketQL {
+  public setRequestHeader(newReqHeader: string) {
     this.reqHeader = newReqHeader;
     return this;
   }
-  public setResponseHeader(newResHeader: string): PacketQL {
+  public setResponseHeader(newResHeader: string) {
     this.resHeader = newResHeader;
     return this;
   }
 
-  private async getThresholdMatched(lastFilter: any) {
+  private async getThresholdMatched(filter: any) {
     const thresholdFilter = {
-      ...this.getStatusAsFilter(),
       staticScore: {$lte: this.threshold},
       ...await getWlblFilter(this.config.choosingProject, this.all),
       $or: [{
@@ -62,10 +62,9 @@ export class PacketQL extends QueryLanguage<ParsedPacket> implements IQueryLangu
         $regex: this.resHeader,
         $options: 'i',
       },
-      ...this.filter,
-      ...lastFilter,
+      ...filter,
     };
-    return parsedPacketRepo.get(thresholdFilter);
+    return this.db.getMany(thresholdFilter);
   }
 
   private filterPacketsByBodyId(matchedIds: string[], packets: ParsedPacket[]): ParsedPacket[] {
@@ -74,11 +73,9 @@ export class PacketQL extends QueryLanguage<ParsedPacket> implements IQueryLangu
     return packets.filter((p) => setMatchedId.has(p.requestBodyHash) || setMatchedId.has(p.responseBodyHash));
   }
 
-
-  async query(lastFilter: any = {}): Promise<ParsedPacket[]> {
+  async query(filter: any = {}): Promise<ParsedPacket[]> {
     await this.checkDoneInitDatabase();
-
-    const thresholdPackets = await this.getThresholdMatched(lastFilter);
+    const thresholdPackets = await this.getThresholdMatched(filter);
 
     // Speed up if body is empty, do not need to filter more
     if (this.body === '') return thresholdPackets;

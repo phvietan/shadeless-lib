@@ -24,7 +24,7 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
-    "@drstrain/drutil": "^1.1.9",
+    "@drstrain/drutil": "^1.1.16",
     "axios-burp": "^1.0.7",
     "mongodb": "^4.4.1"
   },
