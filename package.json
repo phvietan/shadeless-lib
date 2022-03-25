@@ -1,6 +1,6 @@
 {
   "name": "@drstrain/shadeless-lib",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "ShadelessQL - Query Language for Shadeless Database",
   "main": "dist/index.js",
   "scripts": {
