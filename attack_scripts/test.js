@@ -1,7 +1,7 @@
-const {execStr, successLog} = require('@drstrain/drutil');
+const {successLog, exec} = require('@drstrain/drutil');
 
 async function main() {
-  const {stdout} = await execStr(`ls ${__dirname}`);
+  const {stdout} = await exec('ls', [__dirname]);
   const testFiles = stdout
       .split('\n')
       .filter((name) => name !== 'test.js' && /\.js$/i.test(name));
