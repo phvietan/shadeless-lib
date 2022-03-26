@@ -25,7 +25,10 @@ export class Repository<T extends MongoItem> implements IRepository<T> {
   }
 
   async getMany(filter: any = {}) {
-    const documents = await this.db.find(filter).toArray();
+    const documents = await this.db
+        .find(filter)
+        .sort({created_at: -1})
+        .toArray();
     return (documents as unknown) as T[];
   }
 
