@@ -1,6 +1,6 @@
 # ShadelessQL library
 
-A library to communicate with shadeless DB
+A library to communicate with Shadeless DB
 
 ## Examples:
 

@@ -1,6 +1,10 @@
 import {MongoItem} from './status';
 
-// Minimal properties that can craft to burp request
+/**
+ * Minimal properties that can craft to burp request
+ *
+ * @interface PacketRequest
+ */
 export interface PacketRequest {
   method: string;
   project: string;
@@ -11,13 +15,26 @@ export interface PacketRequest {
   querystring: string;
 }
 
-// Minimal properties that can craft to burp response
+/**
+ * Minimal properties that can craft to burp response
+ *
+ * @interface PacketResponse
+ */
 export interface PacketResponse {
   project: string;
   responseBodyHash: string;
   responseHeaders: string[];
 }
 
+/**
+ * Packet interface is document for collection "packets" in Shadeless DB
+ *
+ * @private However query language does not expose this interface for usage
+ * @interface Packet
+ * @extends PacketRequest
+ * @extends PacketResponse
+ * @extends MongoItem
+ */
 export interface Packet extends PacketRequest, PacketResponse, MongoItem {
   toolName: string;
   requestPacketId: string;
@@ -46,7 +63,4 @@ export interface Packet extends PacketRequest, PacketResponse, MongoItem {
   rtt: number;
   reflectedParameters: Record<string, string>;
   codeName: string;
-
-  created_at?: string;
-  updated_at?: string;
 }

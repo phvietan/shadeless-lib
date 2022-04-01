@@ -5,6 +5,9 @@ module.exports = {
   },
   'extends': [
     'google',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   'parser': '@typescript-eslint/parser',
   'parserOptions': {
@@ -13,10 +16,23 @@ module.exports = {
   },
   'plugins': [
     '@typescript-eslint',
+    'eslint-plugin-jsdoc',
   ],
   'rules': {
-    'require-jsdoc': 0,
     'max-len': 0,
     'eol-last': 0,
+    '@typescript-eslint/no-inferrable-types': 0,
+    'jsdoc/require-jsdoc': ['error', {
+      'contexts': [
+        'MethodDefinition',
+        'ClassDeclaration',
+        'FunctionExpression',
+        'FunctionDeclaration',
+        'TSInterfaceDeclaration',
+        'TSTypeAliasDeclaration',
+        'TSEnumDeclaration',
+      ],
+    }],
+    '@typescript-eslint/no-explicit-any': 0,
   },
 };

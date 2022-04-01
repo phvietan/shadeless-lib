@@ -6,7 +6,8 @@
   "scripts": {
     "test": "cd attack_scripts && node ./test.js && cd ..",
     "build": "tsc --watch",
-    "build:prod": "rm -rf dist && npm i && tsc && rm -rf node_modules && npm i --production"
+    "build:prod": "rm -rf dist && npm i && tsc && rm -rf node_modules && npm i --production",
+    "lint": "eslint ./src/"
   },
   "keywords": [
     "query-language",
@@ -17,15 +18,16 @@
   "author": "drstrnegth",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^17.0.21",
-    "@typescript-eslint/eslint-plugin": "^5.16.0",
-    "@typescript-eslint/parser": "^5.16.0",
-    "eslint": "^8.11.0",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "eslint": "^8.12.0",
     "eslint-config-google": "^0.14.0",
-    "typescript": "^4.6.2"
+    "eslint-plugin-jsdoc": "^38.1.4",
+    "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@drstrain/drutil": "^1.1.18",
+    "@drstrain/drutil": "^1.2.4",
     "axios-burp": "^1.0.7",
     "mongodb": "^4.4.1"
   },
