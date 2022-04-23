@@ -2,6 +2,14 @@ import path from 'path';
 import fs from 'fs/promises';
 import {PacketResponse} from '../repositories/packet';
 
+/**
+ * Parse PacketResponse to Burp-like format
+ *
+ * @function
+ * @param {FuzzStatus} packet - PacketResponse to be parsed
+ * @param {string} bodyDir - The directory that holds Shadeless body files (E.g: `/home/$USER/go/src/shadeless-api/files/`)
+ * @return {Promise<string>}
+*/
 export async function response2Burp(packet: PacketResponse, bodyDir: string): Promise<string> {
   let body: string = '';
   try {

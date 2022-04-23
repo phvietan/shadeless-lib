@@ -1,5 +1,10 @@
 import {exec} from '@drstrain/drutil';
 
+/**
+ * Check if ripgrep is installed
+ *
+ * @fuction
+ */
 export async function checkRipgrep() {
   const {err} = await exec('rg', ['--version']);
   if (err) {

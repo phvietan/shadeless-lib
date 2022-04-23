@@ -34,5 +34,6 @@ module.exports = {
       ],
     }],
     '@typescript-eslint/no-explicit-any': 0,
+    'no-trailing-spaces': 0,
   },
 };

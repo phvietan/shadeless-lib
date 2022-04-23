@@ -1,5 +1,11 @@
 import {projectRepo} from '../repositories/project';
 
+/**
+ * Check if the choosing project is available
+ *
+ * @fuction
+ * @param {string} choosingProject - The name of choosing project
+ */
 export async function checkProject(choosingProject: string) {
   if (choosingProject === '') {
     throw new Error('You have not chosen a project!');

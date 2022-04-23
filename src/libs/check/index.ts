@@ -3,12 +3,14 @@ import {checkDb} from './checkDb';
 import {checkProject} from './checkProject';
 import {checkRipgrep} from './checkRipgrep';
 
+/**
+ * Check if Shadeless can faithfully run
+ *
+ * @fuction
+ * @param {IConfig} conf - Shadeless config
+ */
 export async function checker(conf: IConfig) {
-  try {
-    await checkDb(conf.databaseUrl);
-    await checkProject(conf.choosingProject);
-    await checkRipgrep();
-  } catch (err) {
-    throw err;
-  }
+  await checkDb(conf.databaseUrl);
+  await checkProject(conf.choosingProject);
+  await checkRipgrep();
 }

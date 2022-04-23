@@ -41,7 +41,7 @@ export class QueryLanguage<T extends MongoItem> {
   }
 
   /**
-   * Check and wait for database to be done initialized 
+   * Check and wait for database to be done initialized
    *
    * @function
   */
